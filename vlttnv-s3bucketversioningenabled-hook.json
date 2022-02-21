@@ -1,0 +1,31 @@
+{
+    "typeName": "Vlttnv::S3BucketVersioningEnabled::Hook",
+    "description": "Check if S3 bucket has object versioning enabled",
+    "sourceUrl": "https://github.com/vlttnv/s3bucket-versioning-hook",
+    "documentationUrl": "https://github.com/vlttnv/s3bucket-versioning-hook/blob/master/README.md",
+    "typeConfiguration": {
+        "properties": {
+            "excludedBucketSuffixes": {
+                "description": "A comma separated list of bucket names that should be excluded from validation. Each name provided will be matched using starts-with logic.",
+                "type": "string"
+            }
+        },
+        "additionalProperties": false
+    },
+    "required": [],
+    "handlers": {
+        "preCreate": {
+            "targetNames": [
+                "AWS::S3::Bucket"
+            ],
+            "permissions": []
+        },
+        "preUpdate": {
+            "targetNames": [
+                "AWS::S3::Bucket"
+            ],
+            "permissions": []
+        }
+    },
+    "additionalProperties": false
+}
