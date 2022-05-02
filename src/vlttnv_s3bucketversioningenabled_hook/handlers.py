@@ -62,7 +62,9 @@ def pre_create_handler(
         callback_context: MutableMapping[str, Any],
         type_configuration: TypeConfigurationModel
 ) -> ProgressEvent:
+    LOG.info("(Create) hook triggered for target: " + request.hookContext.targetName);
     target_model = request.hookContext.targetModel
+    LOG.info(target_model)
     progress: ProgressEvent = ProgressEvent(
         status=OperationStatus.IN_PROGRESS
     )
@@ -70,7 +72,7 @@ def pre_create_handler(
     try:
         if "AWS::S3::Bucket" == target_name:
             progress = _validate_object_versioning(
-                request.hookContext.targetModel.get("resourceProperties"), 
+                target_model.get("resourceProperties"), 
                 type_configuration.excludedBucketSuffixes,
             )
         else:
@@ -92,7 +94,9 @@ def pre_update_handler(
         callback_context: MutableMapping[str, Any],
         type_configuration: TypeConfigurationModel
 ) -> ProgressEvent:
+    LOG.info("(Update) hook triggered for target: " + request.hookContext.targetName);
     target_model = request.hookContext.targetModel
+    LOG.info(target_model)
     progress: ProgressEvent = ProgressEvent(
         status=OperationStatus.IN_PROGRESS
     )
@@ -101,7 +105,7 @@ def pre_update_handler(
     try:
         if "AWS::S3::Bucket" == target_name:
             progress = _validate_object_versioning(
-                request.hookContext.targetModel.get("resourceProperties"), 
+                target_model.get("resourceProperties"), 
                 type_configuration.excludedBucketSuffixes,
             )
         else:
